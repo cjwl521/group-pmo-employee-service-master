@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<!-- 关闭自动生成的注释 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.88.15:3306/pmo?characterEncoding=utf8"
+			userId="root" password="123456">
+		</jdbcConnection>
+		<!-- 生成DataObject类存放位置 -->
+		<javaModelGenerator targetPackage="com.chinasoft.employee.dao.entity"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="mapping"
+			targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!-- 生成对应的mapper文件地址 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.chinasoft.employee.dao.mapper" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!--生成对应表及类名 -->
+<!-- 		<table tableName="b_employee" domainObjectName="EmployeeDO"></table> -->
+<!-- 		<table tableName="b_hsbc_employee" domainObjectName="HsbcEmployeeDO"></table> -->
+<!-- 		<table tableName="b_data_dictionary" domainObjectName="DictionaryDO"></table> -->
+<!-- 		<table tableName="b_menu_tree" domainObjectName="MenuTreeDO"></table> -->
+<!-- 		<table tableName="b_user_type" domainObjectName="UserTypeDO"></table> -->
+<!-- 		<table tableName="b_user" domainObjectName="UserDO"></table> -->
+		<table tableName="b_ms_employee" domainObjectName="MsEmployeeDO"></table>
+<!-- 		<table tableName="b_cs_dept" domainObjectName="CSDeptDO"></table> -->
+		<!-- <table tableName="userinfo" domainObjectName="UserDO" enableCountByExample="false" 
+			enableUpdateByExample="false" -->
+		<!-- enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
+		<!-- <table tableName="userpassword" domainObjectName="UserPasswordDO" 
+			enableCountByExample="false" enableUpdateByExample="false" -->
+		<!-- enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
+	</context>
+</generatorConfiguration>

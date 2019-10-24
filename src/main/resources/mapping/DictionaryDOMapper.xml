@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.employee.dao.mapper.DictionaryDOMapper">
+  <resultMap id="BaseResultMap" type="com.chinasoft.employee.dao.entity.DictionaryDO">
+    <id column="PK_ID" jdbcType="VARCHAR" property="pkId" />
+    <result column="TYPE_CODE" jdbcType="INTEGER" property="typeCode" />
+    <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
+    <result column="PARAM_CODE" jdbcType="INTEGER" property="paramCode" />
+    <result column="PARAM_NAME" jdbcType="VARCHAR" property="paramName" />
+    <result column="RELATED_CODE" jdbcType="INTEGER" property="relatedCode" />
+    <result column="RELATED_NAME" jdbcType="VARCHAR" property="relatedName" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PK_ID, TYPE_CODE, TYPE_NAME, PARAM_CODE, PARAM_NAME, RELATED_CODE, RELATED_NAME, 
+    STATUS, PARENT_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.chinasoft.employee.dao.entity.DictionaryDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from b_data_dictionary
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from b_data_dictionary
+    where PK_ID = #{pkId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from b_data_dictionary
+    where PK_ID = #{pkId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasoft.employee.dao.entity.DictionaryDOExample">
+    delete from b_data_dictionary
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasoft.employee.dao.entity.DictionaryDO">
+    insert into b_data_dictionary (PK_ID, TYPE_CODE, TYPE_NAME, 
+      PARAM_CODE, PARAM_NAME, RELATED_CODE, 
+      RELATED_NAME, STATUS, PARENT_ID
+      )
+    values (#{pkId,jdbcType=VARCHAR}, #{typeCode,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, 
+      #{paramCode,jdbcType=INTEGER}, #{paramName,jdbcType=VARCHAR}, #{relatedCode,jdbcType=INTEGER}, 
+      #{relatedName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasoft.employee.dao.entity.DictionaryDO">
+    insert into b_data_dictionary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pkId != null">
+        PK_ID,
+      </if>
+      <if test="typeCode != null">
+        TYPE_CODE,
+      </if>
+      <if test="typeName != null">
+        TYPE_NAME,
+      </if>
+      <if test="paramCode != null">
+        PARAM_CODE,
+      </if>
+      <if test="paramName != null">
+        PARAM_NAME,
+      </if>
+      <if test="relatedCode != null">
+        RELATED_CODE,
+      </if>
+      <if test="relatedName != null">
+        RELATED_NAME,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pkId != null">
+        #{pkId,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramCode != null">
+        #{paramCode,jdbcType=INTEGER},
+      </if>
+      <if test="paramName != null">
+        #{paramName,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedCode != null">
+        #{relatedCode,jdbcType=INTEGER},
+      </if>
+      <if test="relatedName != null">
+        #{relatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasoft.employee.dao.entity.DictionaryDOExample" resultType="java.lang.Long">
+    select count(*) from b_data_dictionary
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update b_data_dictionary
+    <set>
+      <if test="record.pkId != null">
+        PK_ID = #{record.pkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeCode != null">
+        TYPE_CODE = #{record.typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeName != null">
+        TYPE_NAME = #{record.typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramCode != null">
+        PARAM_CODE = #{record.paramCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.paramName != null">
+        PARAM_NAME = #{record.paramName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relatedCode != null">
+        RELATED_CODE = #{record.relatedCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.relatedName != null">
+        RELATED_NAME = #{record.relatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null">
+        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update b_data_dictionary
+    set PK_ID = #{record.pkId,jdbcType=VARCHAR},
+      TYPE_CODE = #{record.typeCode,jdbcType=INTEGER},
+      TYPE_NAME = #{record.typeName,jdbcType=VARCHAR},
+      PARAM_CODE = #{record.paramCode,jdbcType=INTEGER},
+      PARAM_NAME = #{record.paramName,jdbcType=VARCHAR},
+      RELATED_CODE = #{record.relatedCode,jdbcType=INTEGER},
+      RELATED_NAME = #{record.relatedName,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      PARENT_ID = #{record.parentId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasoft.employee.dao.entity.DictionaryDO">
+    update b_data_dictionary
+    <set>
+      <if test="typeCode != null">
+        TYPE_CODE = #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null">
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramCode != null">
+        PARAM_CODE = #{paramCode,jdbcType=INTEGER},
+      </if>
+      <if test="paramName != null">
+        PARAM_NAME = #{paramName,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedCode != null">
+        RELATED_CODE = #{relatedCode,jdbcType=INTEGER},
+      </if>
+      <if test="relatedName != null">
+        RELATED_NAME = #{relatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PK_ID = #{pkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasoft.employee.dao.entity.DictionaryDO">
+    update b_data_dictionary
+    set TYPE_CODE = #{typeCode,jdbcType=INTEGER},
+      TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      PARAM_CODE = #{paramCode,jdbcType=INTEGER},
+      PARAM_NAME = #{paramName,jdbcType=VARCHAR},
+      RELATED_CODE = #{relatedCode,jdbcType=INTEGER},
+      RELATED_NAME = #{relatedName,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR}
+    where PK_ID = #{pkId,jdbcType=VARCHAR}
+  </update>
+</mapper>

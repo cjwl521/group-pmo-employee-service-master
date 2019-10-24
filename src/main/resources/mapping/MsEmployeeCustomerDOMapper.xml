@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.employee.dao.mapper.MsEmployeeCustomerDOMapper">
+  <insert id="batchInsert" parameterType="java.util.List">
+		insert into b_ms_employee (PK_ID, EMPLOYEE_ID, MS_LEVEL)
+		values
+		<foreach collection="list" item="records" index="index"
+			separator=",">
+			(#{records.pkId,jdbcType=VARCHAR},
+			#{records.employeeId,jdbcType=VARCHAR},
+			#{records.msLevel,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+	<update id="batchUpdate" parameterType="java.util.List">
+		update
+		b_ms_employee
+		<trim prefix="set" suffixOverrides=",">
+			<trim prefix="MS_LEVEL = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.msLevel != null">
+						when employee_id = #{records.pkId} then #{records.msLevel}
+					</if>
+				</foreach>
+		    </trim>
+		</trim>
+		WHERE
+		employee_id in
+		<foreach collection="list" item="records" index="index" open="("
+			separator="," close=")">
+			#{records.pkId}
+		</foreach>
+	</update>
+</mapper>

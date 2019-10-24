@@ -1,0 +1,40 @@
+server:
+  port: 9098
+logging:
+  level:
+    com.chinasoft.pmo.dao.mapper: info  
+spring:
+  datasource:
+    jndi-name: jdbc/pmoDevDataSource
+    dbcp2:
+      max-idle: 30
+      max-total: 10
+    type: com.alibaba.druid.pool.DruidDataSource
+  mvc:
+    async:
+      request-timeout: 3000
+    # url 路径为 服务器项目名/service/ 需要添加如下配置
+    servlet: 
+      path: /service/v1/employee/
+
+mybatis: 
+  mapper-locations: classpath:mapping/*.xml
+  mapperLocations: classpath:mybatis-generator.xml
+
+employee: 
+   login: 
+        url: http://ics.chinasoftosg.com/login
+   verify: 
+        flag: false
+   datasource: 
+        url: jdbc:mysql://119.3.31.11:8306/pm?characterEncoding=utf-8&allowMultiQueries=true
+        username: pmo_admin
+        password: PMO.admin123
+        driver: com.mysql.cj.jdbc.Driver
+   admin: 
+        password: cG1vQDIwMTk=
+   excel: 
+        address: D:\pmo\employee\Excel\
+applyStatus: 
+   time: 
+     cron: 0 0 4 * * ?

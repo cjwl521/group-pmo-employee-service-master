@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.employee.dao.mapper.EmployeeRelatedDOMapper">
+	<resultMap id="BaseResultMap" type="com.chinasoft.employee.dao.entity.EmployeeDO">
+		<id column="PK_ID" jdbcType="VARCHAR" property="pkId" />
+		<result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+		<result column="E_HR" jdbcType="VARCHAR" property="eHr" />
+		<result column="LOB" jdbcType="VARCHAR" property="lob" />
+		<result column="STAFF_NAME" jdbcType="VARCHAR" property="staffName" />
+		<result column="RM_USER_ID" jdbcType="VARCHAR" property="rmUserId" />
+		<result column="STAFF_REGION" jdbcType="INTEGER" property="staffRegion" />
+		<result column="STAFF_LOCATION" jdbcType="INTEGER" property="staffLocation" />
+		<result column="ROLE" jdbcType="INTEGER" property="role" />
+		<result column="SKILL" jdbcType="INTEGER" property="skill" />
+		<result column="ENGAGEMENT_TYPE" jdbcType="INTEGER" property="engagementType" />
+		<result column="BILL_RATE_TYPE" jdbcType="INTEGER" property="billRateType" />
+		<result column="BILL_CURRENCY" jdbcType="INTEGER" property="billCurrency" />
+		<result column="BILL_RATE" jdbcType="DECIMAL" property="billRate" />
+		<result column="EMPLOYEE_TYPE" jdbcType="INTEGER" property="employeeType" />
+		<result column="RESOURCE_STATUS" jdbcType="INTEGER" property="resourceStatus" />
+		<result column="GRADUATION_DATE" jdbcType="DATE" property="graduationDate" />
+		<result column="ENTRY_DATE" jdbcType="DATE" property="entryDate" />
+		<result column="Email" jdbcType="VARCHAR" property="email" />
+		<result column="CSI_PRO_NUMBER" jdbcType="VARCHAR" property="csiProNumber" />
+		<result column="CSI_PRO_STARTDATE" jdbcType="DATE" property="csiProStartdate" />
+		<result column="CSI_PRO_NAME" jdbcType="VARCHAR" property="csiProName" />
+		<result column="ITINDUSTRY_WORK_YEAR" jdbcType="INTEGER"
+			property="itindustryWorkYear" />
+		<result column="TERMINATION_DATE" jdbcType="DATE" property="terminationDate" />
+		<result column="REASON_FOR_TERMINATION" jdbcType="VARCHAR"
+			property="reasonForTermination" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="BACKBONE" jdbcType="VARCHAR" property="backbone" />
+		<result column="ASSESSED" jdbcType="INTEGER" property="assessed" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		PK_ID, USER_ID, E_HR, LOB, STAFF_NAME, RM_USER_ID,
+		STAFF_REGION,
+		STAFF_LOCATION,
+		ROLE, SKILL, ENGAGEMENT_TYPE,
+		BILL_RATE_TYPE, BILL_CURRENCY, BILL_RATE,
+		EMPLOYEE_TYPE,
+		RESOURCE_STATUS, GRADUATION_DATE, ENTRY_DATE, Email, CSI_PRO_NUMBER,
+		CSI_PRO_STARTDATE,
+		CSI_PRO_NAME, ITINDUSTRY_WORK_YEAR,
+		TERMINATION_DATE, REASON_FOR_TERMINATION,
+		CREATE_TIME,
+		UPDATE_TIME,
+		BACKBONE, ASSESSED
+	</sql>
+
+	<select id="selectRmUserId" resultType="string">
+		select
+		pk_id as rmUserId
+		from b_user
+		where USER_NAME = #{rmName}
+	</select>
+
+	<select id="selectBlId" resultType="string">
+		select
+		CS_BL_ID as blId
+		from
+		b_cs_bu
+		where pk_id = #{buId}
+	</select>
+
+	<select id="selectBuIdAndCsdeptId" resultType="map">
+		select * from
+		t_cs_dept where CS_SUBDEPT_NAME = #{subdeptName}
+	</select>
+
+	<select id="selectRmAllInfo" parameterType="int"
+		resultType="com.chinasoft.employee.service.model.RmInfoModel">
+		select distinct e.staff_name staffName,ur.pk_id rmUserId,
+		e.pk_id employeeId from b_employee e,b_user_role ur where ur.user_type
+		= #{userType} and e.pk_id = ur.employee_id
+	</select>
+
+	<select id="selectRmAllInfoByLoginUser" resultType="com.chinasoft.employee.service.model.RmInfoModel">
+		select distinct
+		STAFF_NAME as staffName,be.PK_ID as
+		employeeId,bur.PK_ID as rmUserId
+		from b_employee be INNER JOIN
+		b_user_role bur on bur.user_type = #{userType} and
+		be.PK_ID =
+		bur.employee_Id
+		<if test="csDeptDOList!=null and csDeptDOList.size()>0">
+			and
+			bur.csdept_id in
+			<foreach item="item" index="index" collection="csDeptDOList"
+				open="(" separator="," close=")">
+				#{item.pkId}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="selectCsDeptId" resultType="int">
+		select
+		pk_id as csDeptId
+		from b_cs_dept
+		where cs_dept_name = #{subdeptName}
+	</select>
+
+	<select id="selectEmpIdByUserId" resultType="String">
+		select Pk_id as
+		employeeId from b_employee where user_Id = #{userId}
+	</select>
+
+	<select id="selectEmpIdByEhr" resultType="string">
+		select
+		pk_id as
+		employeeId
+		from b_employee
+		where E_HR = #{eHr}
+	</select>
+	
+	<select id="selectAllEHr" resultType="String">
+		select
+		e_hr as ehr
+		from b_employee
+	</select>
+	
+
+</mapper>

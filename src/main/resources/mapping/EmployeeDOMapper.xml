@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.employee.dao.mapper.EmployeeDOMapper">
+	<resultMap id="BaseResultMap" type="com.chinasoft.employee.dao.entity.EmployeeDO">
+		<id column="PK_ID" jdbcType="VARCHAR" property="pkId" />
+		<result column="E_HR" jdbcType="VARCHAR" property="eHr" />
+		<result column="LOB" jdbcType="VARCHAR" property="lob" />
+		<result column="STAFF_NAME" jdbcType="VARCHAR" property="staffName" />
+		<result column="RM_USER_ID" jdbcType="VARCHAR" property="rmUserId" />
+		<result column="STAFF_REGION" jdbcType="INTEGER" property="staffRegion" />
+		<result column="STAFF_LOCATION" jdbcType="INTEGER" property="staffLocation" />
+		<result column="ROLE" jdbcType="INTEGER" property="role" />
+		<result column="SKILL" jdbcType="INTEGER" property="skill" />
+		<result column="ENGAGEMENT_TYPE" jdbcType="INTEGER" property="engagementType" />
+		<result column="BILL_RATE_TYPE" jdbcType="INTEGER" property="billRateType" />
+		<result column="BILL_CURRENCY" jdbcType="INTEGER" property="billCurrency" />
+		<result column="BILL_RATE" jdbcType="DECIMAL" property="billRate" />
+		<result column="EMPLOYEE_TYPE" jdbcType="INTEGER" property="employeeType" />
+		<result column="RESOURCE_STATUS" jdbcType="INTEGER" property="resourceStatus" />
+		<result column="GRADUATION_DATE" jdbcType="DATE" property="graduationDate" />
+		<result column="ENTRY_DATE" jdbcType="DATE" property="entryDate" />
+		<result column="Email" jdbcType="VARCHAR" property="email" />
+		<result column="CSI_PRO_NUMBER" jdbcType="VARCHAR" property="csiProNumber" />
+		<result column="CSI_PRO_STARTDATE" jdbcType="DATE" property="csiProStartdate" />
+		<result column="CSI_PRO_NAME" jdbcType="VARCHAR" property="csiProName" />
+		<result column="ITINDUSTRY_WORK_YEAR" jdbcType="DECIMAL"
+property="itindustryWorkYear" />
+		<result column="TERMINATION_DATE" jdbcType="DATE" property="terminationDate" />
+		<result column="REASON_FOR_TERMINATION" jdbcType="VARCHAR"
+property="reasonForTermination" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="BACKBONE" jdbcType="VARCHAR" property="backbone" />
+		<result column="ASSESSED" jdbcType="INTEGER" property="assessed" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		PK_ID,  E_HR, LOB, STAFF_NAME, RM_USER_ID,
+		STAFF_REGION,
+		STAFF_LOCATION,
+		ROLE, SKILL, ENGAGEMENT_TYPE,
+		BILL_RATE_TYPE, BILL_CURRENCY, BILL_RATE,
+		EMPLOYEE_TYPE,
+		RESOURCE_STATUS, GRADUATION_DATE, ENTRY_DATE, Email, CSI_PRO_NUMBER,
+		CSI_PRO_STARTDATE,
+		CSI_PRO_NAME, ITINDUSTRY_WORK_YEAR,
+		TERMINATION_DATE, REASON_FOR_TERMINATION,
+		CREATE_TIME,
+		UPDATE_TIME,
+		BACKBONE, ASSESSED
+	</sql>
+	<select id="selectByExample" parameterType="com.chinasoft.employee.dao.entity.EmployeeDOExample"
+resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from b_employee
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from b_employee
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		b_employee
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.chinasoft.employee.dao.entity.EmployeeDOExample">
+		delete from b_employee
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.chinasoft.employee.dao.entity.EmployeeDO">
+		insert into b_employee (PK_ID,E_HR,
+		LOB, STAFF_NAME, RM_USER_ID,
+		STAFF_REGION,
+		STAFF_LOCATION, ROLE,
+		SKILL, ENGAGEMENT_TYPE, BILL_RATE_TYPE,
+		BILL_CURRENCY, BILL_RATE, EMPLOYEE_TYPE,
+		RESOURCE_STATUS,
+		GRADUATION_DATE, ENTRY_DATE,
+		Email, CSI_PRO_NUMBER, CSI_PRO_STARTDATE,
+		CSI_PRO_NAME, ITINDUSTRY_WORK_YEAR, TERMINATION_DATE,
+		REASON_FOR_TERMINATION, CREATE_TIME, UPDATE_TIME,
+		BACKBONE, ASSESSED)
+		values (#{pkId,jdbcType=VARCHAR}, 
+		#{eHr,jdbcType=VARCHAR},
+		#{lob,jdbcType=VARCHAR},
+		#{staffName,jdbcType=VARCHAR}, #{rmUserId,jdbcType=VARCHAR},
+		#{staffRegion,jdbcType=INTEGER}, #{staffLocation,jdbcType=INTEGER},
+		#{role,jdbcType=INTEGER},
+		#{skill,jdbcType=INTEGER},
+		#{engagementType,jdbcType=INTEGER}, #{billRateType,jdbcType=INTEGER},
+		#{billCurrency,jdbcType=INTEGER}, #{billRate,jdbcType=DECIMAL},
+		#{employeeType,jdbcType=INTEGER},
+		#{resourceStatus,jdbcType=INTEGER},
+		#{graduationDate,jdbcType=DATE}, #{entryDate,jdbcType=DATE},
+		#{email,jdbcType=VARCHAR}, #{csiProNumber,jdbcType=VARCHAR},
+		#{csiProStartdate,jdbcType=DATE},
+		#{csiProName,jdbcType=VARCHAR},
+		#{itindustryWorkYear,jdbcType=DECIMAL},
+		#{terminationDate,jdbcType=DATE},
+		#{reasonForTermination,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{backbone,jdbcType=VARCHAR}, #{assessed,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.chinasoft.employee.dao.entity.EmployeeDO">
+		insert into b_employee
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pkId != null">
+				PK_ID,
+			</if>
+			<if test="eHr != null">
+				E_HR,
+			</if>
+			<if test="lob != null">
+				LOB,
+			</if>
+			<if test="staffName != null">
+				STAFF_NAME,
+			</if>
+			<if test="rmUserId != null">
+				RM_USER_ID,
+			</if>
+			<if test="staffRegion != null">
+				STAFF_REGION,
+			</if>
+			<if test="staffLocation != null">
+				STAFF_LOCATION,
+			</if>
+			<if test="role != null">
+				ROLE,
+			</if>
+			<if test="skill != null">
+				SKILL,
+			</if>
+			<if test="engagementType != null">
+				ENGAGEMENT_TYPE,
+			</if>
+			<if test="billRateType != null">
+				BILL_RATE_TYPE,
+			</if>
+			<if test="billCurrency != null">
+				BILL_CURRENCY,
+			</if>
+			<if test="billRate != null">
+				BILL_RATE,
+			</if>
+			<if test="employeeType != null">
+				EMPLOYEE_TYPE,
+			</if>
+			<if test="resourceStatus != null">
+				RESOURCE_STATUS,
+			</if>
+			<if test="graduationDate != null">
+				GRADUATION_DATE,
+			</if>
+			<if test="entryDate != null">
+				ENTRY_DATE,
+			</if>
+			<if test="email != null">
+				Email,
+			</if>
+			<if test="csiProNumber != null">
+				CSI_PRO_NUMBER,
+			</if>
+			<if test="csiProStartdate != null">
+				CSI_PRO_STARTDATE,
+			</if>
+			<if test="csiProName != null">
+				CSI_PRO_NAME,
+			</if>
+			<if test="itindustryWorkYear != null">
+				ITINDUSTRY_WORK_YEAR,
+			</if>
+			<if test="terminationDate != null">
+				TERMINATION_DATE,
+			</if>
+			<if test="reasonForTermination != null">
+				REASON_FOR_TERMINATION,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="backbone != null">
+				BACKBONE,
+			</if>
+			<if test="assessed != null">
+				ASSESSED,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pkId != null">
+				#{pkId,jdbcType=VARCHAR},
+			</if>
+			<if test="eHr != null">
+				#{eHr,jdbcType=VARCHAR},
+			</if>
+			<if test="lob != null">
+				#{lob,jdbcType=VARCHAR},
+			</if>
+			<if test="staffName != null">
+				#{staffName,jdbcType=VARCHAR},
+			</if>
+			<if test="rmUserId != null">
+				#{rmUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="staffRegion != null">
+				#{staffRegion,jdbcType=INTEGER},
+			</if>
+			<if test="staffLocation != null">
+				#{staffLocation,jdbcType=INTEGER},
+			</if>
+			<if test="role != null">
+				#{role,jdbcType=INTEGER},
+			</if>
+			<if test="skill != null">
+				#{skill,jdbcType=INTEGER},
+			</if>
+			<if test="engagementType != null">
+				#{engagementType,jdbcType=INTEGER},
+			</if>
+			<if test="billRateType != null">
+				#{billRateType,jdbcType=INTEGER},
+			</if>
+			<if test="billCurrency != null">
+				#{billCurrency,jdbcType=INTEGER},
+			</if>
+			<if test="billRate != null">
+				#{billRate,jdbcType=DECIMAL},
+			</if>
+			<if test="employeeType != null">
+				#{employeeType,jdbcType=INTEGER},
+			</if>
+			<if test="resourceStatus != null">
+				#{resourceStatus,jdbcType=INTEGER},
+			</if>
+			<if test="graduationDate != null">
+				#{graduationDate,jdbcType=DATE},
+			</if>
+			<if test="entryDate != null">
+				#{entryDate,jdbcType=DATE},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="csiProNumber != null">
+				#{csiProNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="csiProStartdate != null">
+				#{csiProStartdate,jdbcType=DATE},
+			</if>
+			<if test="csiProName != null">
+				#{csiProName,jdbcType=VARCHAR},
+			</if>
+			<if test="itindustryWorkYear != null">
+				#{itindustryWorkYear,jdbcType=DECIMAL},
+			</if>
+			<if test="terminationDate != null">
+				#{terminationDate,jdbcType=DATE},
+			</if>
+			<if test="reasonForTermination != null">
+				#{reasonForTermination,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="backbone != null">
+				#{backbone,jdbcType=VARCHAR},
+			</if>
+			<if test="assessed != null">
+				#{assessed,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.chinasoft.employee.dao.entity.EmployeeDOExample"
+resultType="java.lang.Long">
+		select count(*) from b_employee
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update b_employee
+		<set>
+			<if test="record.pkId != null">
+				PK_ID = #{record.pkId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eHr != null">
+				E_HR = #{record.eHr,jdbcType=VARCHAR},
+			</if>
+			<if test="record.lob != null">
+				LOB = #{record.lob,jdbcType=VARCHAR},
+			</if>
+			<if test="record.staffName != null">
+				STAFF_NAME = #{record.staffName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rmUserId != null">
+				RM_USER_ID = #{record.rmUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.staffRegion != null">
+				STAFF_REGION = #{record.staffRegion,jdbcType=INTEGER},
+			</if>
+			<if test="record.staffLocation != null">
+				STAFF_LOCATION =
+				#{record.staffLocation,jdbcType=INTEGER},
+			</if>
+			<if test="record.role != null">
+				ROLE = #{record.role,jdbcType=INTEGER},
+			</if>
+			<if test="record.skill != null">
+				SKILL = #{record.skill,jdbcType=INTEGER},
+			</if>
+			<if test="record.engagementType != null">
+				ENGAGEMENT_TYPE =
+				#{record.engagementType,jdbcType=INTEGER},
+			</if>
+			<if test="record.billRateType != null">
+				BILL_RATE_TYPE = #{record.billRateType,jdbcType=INTEGER},
+			</if>
+			<if test="record.billCurrency != null">
+				BILL_CURRENCY = #{record.billCurrency,jdbcType=INTEGER},
+			</if>
+			<if test="record.billRate != null">
+				BILL_RATE = #{record.billRate,jdbcType=DECIMAL},
+			</if>
+			<if test="record.employeeType != null">
+				EMPLOYEE_TYPE = #{record.employeeType,jdbcType=INTEGER},
+			</if>
+			<if test="record.resourceStatus != null">
+				RESOURCE_STATUS =
+				#{record.resourceStatus,jdbcType=INTEGER},
+			</if>
+			<if test="record.graduationDate != null">
+				GRADUATION_DATE = #{record.graduationDate,jdbcType=DATE},
+			</if>
+			<if test="record.entryDate != null">
+				ENTRY_DATE = #{record.entryDate,jdbcType=DATE},
+			</if>
+			<if test="record.email != null">
+				Email = #{record.email,jdbcType=VARCHAR},
+			</if>
+			<if test="record.csiProNumber != null">
+				CSI_PRO_NUMBER = #{record.csiProNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="record.csiProStartdate != null">
+				CSI_PRO_STARTDATE =
+				#{record.csiProStartdate,jdbcType=DATE},
+			</if>
+			<if test="record.csiProName != null">
+				CSI_PRO_NAME = #{record.csiProName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.itindustryWorkYear != null">
+				ITINDUSTRY_WORK_YEAR =
+				#{record.itindustryWorkYear,jdbcType=DECIMAL},
+			</if>
+			<if test="record.terminationDate != null">
+				TERMINATION_DATE =
+				#{record.terminationDate,jdbcType=DATE},
+			</if>
+			<if test="record.reasonForTermination != null">
+				REASON_FOR_TERMINATION =
+				#{record.reasonForTermination,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createTime != null">
+				CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.updateTime != null">
+				UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.backbone != null">
+				BACKBONE = #{record.backbone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.assessed != null">
+				ASSESSED = #{record.assessed,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update b_employee
+		set PK_ID = #{record.pkId,jdbcType=VARCHAR},
+      E_HR = #{record.eHr,jdbcType=VARCHAR},
+		LOB = #{record.lob,jdbcType=VARCHAR},
+		STAFF_NAME = #{record.staffName,jdbcType=VARCHAR},
+		RM_USER_ID =
+		#{record.rmUserId,jdbcType=VARCHAR},
+		STAFF_REGION =
+		#{record.staffRegion,jdbcType=INTEGER},
+		STAFF_LOCATION =
+		#{record.staffLocation,jdbcType=INTEGER},
+		ROLE =
+		#{record.role,jdbcType=INTEGER},
+		SKILL =
+		#{record.skill,jdbcType=INTEGER},
+		ENGAGEMENT_TYPE =
+		#{record.engagementType,jdbcType=INTEGER},
+		BILL_RATE_TYPE =
+		#{record.billRateType,jdbcType=INTEGER},
+		BILL_CURRENCY =
+		#{record.billCurrency,jdbcType=INTEGER},
+		BILL_RATE =
+		#{record.billRate,jdbcType=DECIMAL},
+		EMPLOYEE_TYPE =
+		#{record.employeeType,jdbcType=INTEGER},
+		RESOURCE_STATUS =
+		#{record.resourceStatus,jdbcType=INTEGER},
+		GRADUATION_DATE =
+		#{record.graduationDate,jdbcType=DATE},
+		ENTRY_DATE =
+		#{record.entryDate,jdbcType=DATE},
+		Email =
+		#{record.email,jdbcType=VARCHAR},
+		CSI_PRO_NUMBER =
+		#{record.csiProNumber,jdbcType=VARCHAR},
+		CSI_PRO_STARTDATE =
+		#{record.csiProStartdate,jdbcType=DATE},
+		CSI_PRO_NAME =
+		#{record.csiProName,jdbcType=VARCHAR},
+		ITINDUSTRY_WORK_YEAR =
+		#{record.itindustryWorkYear,jdbcType=DECIMAL},
+		TERMINATION_DATE =
+		#{record.terminationDate,jdbcType=DATE},
+		REASON_FOR_TERMINATION =
+		#{record.reasonForTermination,jdbcType=VARCHAR},
+		CREATE_TIME =
+		#{record.createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME =
+		#{record.updateTime,jdbcType=TIMESTAMP},
+		BACKBONE =
+		#{record.backbone,jdbcType=VARCHAR},
+		ASSESSED =
+		#{record.assessed,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.chinasoft.employee.dao.entity.EmployeeDO">
+		update b_employee
+		<set>
+			<if test="eHr != null">
+				E_HR = #{eHr,jdbcType=VARCHAR},
+			</if>
+			<if test="lob != null">
+				LOB = #{lob,jdbcType=VARCHAR},
+			</if>
+			<if test="staffName != null">
+				STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+			</if>
+			<if test="rmUserId != null">
+				RM_USER_ID = #{rmUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="staffRegion != null">
+				STAFF_REGION = #{staffRegion,jdbcType=INTEGER},
+			</if>
+			<if test="staffLocation != null">
+				STAFF_LOCATION = #{staffLocation,jdbcType=INTEGER},
+			</if>
+			<if test="role != null">
+				ROLE = #{role,jdbcType=INTEGER},
+			</if>
+			<if test="skill != null">
+				SKILL = #{skill,jdbcType=INTEGER},
+			</if>
+			<if test="engagementType != null">
+				ENGAGEMENT_TYPE = #{engagementType,jdbcType=INTEGER},
+			</if>
+			<if test="billRateType != null">
+				BILL_RATE_TYPE = #{billRateType,jdbcType=INTEGER},
+			</if>
+			<if test="billCurrency != null">
+				BILL_CURRENCY = #{billCurrency,jdbcType=INTEGER},
+			</if>
+			<if test="billRate != null">
+				BILL_RATE = #{billRate,jdbcType=DECIMAL},
+			</if>
+			<if test="employeeType != null">
+				EMPLOYEE_TYPE = #{employeeType,jdbcType=INTEGER},
+			</if>
+			<if test="resourceStatus != null">
+				RESOURCE_STATUS = #{resourceStatus,jdbcType=INTEGER},
+			</if>
+			<if test="graduationDate != null">
+				GRADUATION_DATE = #{graduationDate,jdbcType=DATE},
+			</if>
+			<if test="entryDate != null">
+				ENTRY_DATE = #{entryDate,jdbcType=DATE},
+			</if>
+			<if test="email != null">
+				Email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="csiProNumber != null">
+				CSI_PRO_NUMBER = #{csiProNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="csiProStartdate != null">
+				CSI_PRO_STARTDATE = #{csiProStartdate,jdbcType=DATE},
+			</if>
+			<if test="csiProName != null">
+				CSI_PRO_NAME = #{csiProName,jdbcType=VARCHAR},
+			</if>
+			<if test="itindustryWorkYear != null">
+				ITINDUSTRY_WORK_YEAR =
+				#{itindustryWorkYear,jdbcType=DECIMAL},
+			</if>
+			<if test="terminationDate != null">
+				TERMINATION_DATE = #{terminationDate,jdbcType=DATE},
+			</if>
+			<if test="reasonForTermination != null">
+				REASON_FOR_TERMINATION =
+				#{reasonForTermination,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="backbone != null">
+				BACKBONE = #{backbone,jdbcType=VARCHAR},
+			</if>
+			<if test="assessed != null">
+				ASSESSED = #{assessed,jdbcType=INTEGER},
+			</if>
+		</set>
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.chinasoft.employee.dao.entity.EmployeeDO">
+		update b_employee
+		set
+		E_HR = #{eHr,jdbcType=VARCHAR},
+		LOB = #{lob,jdbcType=VARCHAR},
+		STAFF_NAME =
+		#{staffName,jdbcType=VARCHAR},
+		RM_USER_ID =
+		#{rmUserId,jdbcType=VARCHAR},
+		STAFF_REGION =
+		#{staffRegion,jdbcType=INTEGER},
+		STAFF_LOCATION =
+		#{staffLocation,jdbcType=INTEGER},
+		ROLE = #{role,jdbcType=INTEGER},
+		SKILL = #{skill,jdbcType=INTEGER},
+		ENGAGEMENT_TYPE =
+		#{engagementType,jdbcType=INTEGER},
+		BILL_RATE_TYPE =
+		#{billRateType,jdbcType=INTEGER},
+		BILL_CURRENCY =
+		#{billCurrency,jdbcType=INTEGER},
+		BILL_RATE =
+		#{billRate,jdbcType=DECIMAL},
+		EMPLOYEE_TYPE =
+		#{employeeType,jdbcType=INTEGER},
+		RESOURCE_STATUS =
+		#{resourceStatus,jdbcType=INTEGER},
+		GRADUATION_DATE =
+		#{graduationDate,jdbcType=DATE},
+		ENTRY_DATE =
+		#{entryDate,jdbcType=DATE},
+		Email = #{email,jdbcType=VARCHAR},
+		CSI_PRO_NUMBER = #{csiProNumber,jdbcType=VARCHAR},
+		CSI_PRO_STARTDATE =
+		#{csiProStartdate,jdbcType=DATE},
+		CSI_PRO_NAME =
+		#{csiProName,jdbcType=VARCHAR},
+		ITINDUSTRY_WORK_YEAR =
+		#{itindustryWorkYear,jdbcType=DECIMAL},
+		TERMINATION_DATE =
+		#{terminationDate,jdbcType=DATE},
+		REASON_FOR_TERMINATION =
+		#{reasonForTermination,jdbcType=VARCHAR},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		BACKBONE =
+		#{backbone,jdbcType=VARCHAR},
+		ASSESSED = #{assessed,jdbcType=INTEGER}
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</update>
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into b_employee (PK_ID, E_HR,
+		LOB, STAFF_NAME,
+		RM_USER_ID,
+		STAFF_REGION, STAFF_LOCATION, ROLE,
+		SKILL, ENGAGEMENT_TYPE,
+		BILL_RATE_TYPE,
+		BILL_CURRENCY, BILL_RATE, EMPLOYEE_TYPE,
+		RESOURCE_STATUS, GRADUATION_DATE, ENTRY_DATE,
+		Email, CSI_PRO_NUMBER,
+		CSI_PRO_STARTDATE,
+		CSI_PRO_NAME, ITINDUSTRY_WORK_YEAR,
+		TERMINATION_DATE,
+		REASON_FOR_TERMINATION, CREATE_TIME, UPDATE_TIME,
+		BACKBONE, ASSESSED)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.pkId,jdbcType=VARCHAR},
+			 #{item.eHr,jdbcType=VARCHAR},
+			#{item.lob,jdbcType=VARCHAR}, #{item.staffName,jdbcType=VARCHAR},
+			#{item.rmUserId,jdbcType=VARCHAR},
+			#{item.staffRegion,jdbcType=INTEGER},
+			#{item.staffLocation,jdbcType=INTEGER},
+			#{item.role,jdbcType=INTEGER},
+			#{item.skill,jdbcType=INTEGER},
+			#{item.engagementType,jdbcType=INTEGER},
+			#{item.billRateType,jdbcType=INTEGER},
+			#{item.billCurrency,jdbcType=INTEGER},
+			#{item.billRate,jdbcType=DECIMAL},
+			#{item.employeeType,jdbcType=INTEGER},
+			#{item.resourceStatus,jdbcType=INTEGER},
+			#{item.graduationDate,jdbcType=DATE},
+			#{item.entryDate,jdbcType=DATE},
+			#{item.email,jdbcType=VARCHAR},
+			#{item.csiProNumber,jdbcType=VARCHAR},
+			#{item.csiProStartdate,jdbcType=DATE},
+			#{item.csiProName,jdbcType=VARCHAR},
+			#{item.itindustryWorkYear,jdbcType=DECIMAL},
+			#{item.terminationDate,jdbcType=DATE},
+			#{item.reasonForTermination,jdbcType=VARCHAR},
+			#{item.createTime,jdbcType=TIMESTAMP},
+			#{item.updateTime,jdbcType=TIMESTAMP},
+			#{item.backbone,jdbcType=VARCHAR}, #{item.assessed,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+
+	<update id="batchUpdateEmployee" parameterType="java.util.List">
+		update b_employee
+		<trim prefix="set" suffixOverrides=",">
+			<trim prefix="staff_name = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.staffName != '' and records.staffName != null">
+						when E_HR = #{records.eHr} then #{records.staffName}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="E_HR = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.eHr != '' and records.eHr != null">
+						when E_HR = #{records.eHr} then #{records.eHr}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="LOB = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.lob != '' and records.lob != null">
+						when E_HR = #{records.eHr} then #{records.lob}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="RM_USER_ID = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.rmUserId != '' and records.rmUserId != null">
+						when E_HR = #{records.eHr} then #{records.rmUserId}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="Email = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.email != '' and records.email != null">
+						when E_HR = #{records.eHr} then #{records.email}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="CSI_PRO_NUMBER = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.csiProNumber != '' and records.csiProNumber != null">
+						when E_HR = #{records.eHr} then #{records.csiProNumber}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="CSI_PRO_NAME = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.csiProName != '' and records.csiProName != null">
+						when E_HR = #{records.eHr} then #{records.csiProName}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="REASON_FOR_TERMINATION = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if
+						test="records.reasonForTermination != '' and records.reasonForTermination != null">
+						when E_HR = #{records.eHr} then #{records.reasonForTermination}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="UPDATE_TIME = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.updateTime != null">
+						when E_HR = #{records.eHr} then #{records.updateTime}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="GRADUATION_DATE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.graduationDate != null">
+						when E_HR = #{records.eHr} then #{records.graduationDate}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="TERMINATION_DATE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.terminationDate != null">
+						when E_HR = #{records.eHr} then #{records.terminationDate}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="ENTRY_DATE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.entryDate != null">
+						when E_HR = #{records.eHr} then #{records.entryDate}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="CSI_PRO_STARTDATE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.csiProStartdate != null">
+						when E_HR = #{records.eHr} then #{records.csiProStartdate}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="ITINDUSTRY_WORK_YEAR = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.itindustryWorkYear != null">
+					when E_HR = #{records.eHr} then
+					#{records.itindustryWorkYear}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="ASSESSED = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.assessed != null">
+					when E_HR = #{records.eHr} then
+					#{records.assessed}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="STAFF_REGION = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.staffRegion != null">
+					when E_HR = #{records.eHr} then
+					#{records.staffRegion}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="STAFF_LOCATION = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.staffLocation != null">
+					when E_HR = #{records.eHr} then
+					#{records.staffLocation}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="ROLE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.role != null">
+					when E_HR = #{records.eHr} then
+					#{records.role}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="SKILL = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.skill != null">
+					when E_HR = #{records.eHr} then
+					#{records.skill}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="ENGAGEMENT_TYPE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.engagementType != null">
+					when E_HR = #{records.eHr} then
+					#{records.engagementType}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="BILL_RATE_TYPE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.billRateType != null">
+					when E_HR = #{records.eHr} then
+					#{records.billRateType}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="BILL_CURRENCY = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.billCurrency != null">
+					when E_HR = #{records.eHr} then
+					#{records.billCurrency}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="BILL_RATE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.billRate != null">
+					when E_HR = #{records.eHr} then
+					#{records.billRate}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="EMPLOYEE_TYPE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.employeeType != null">
+					when E_HR = #{records.eHr} then
+					#{records.employeeType}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="RESOURCE_STATUS = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.resourceStatus != null">
+					when E_HR = #{records.eHr} then
+					#{records.resourceStatus}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE
+		E_HR in
+		<foreach collection="list" item="records" index="index" open="("
+			separator="," close=")">
+			#{records.eHr}
+		</foreach>
+	</update>
+
+</mapper>

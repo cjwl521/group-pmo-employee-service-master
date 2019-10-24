@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.employee.dao.mapper.UserDOMapper">
+	<resultMap id="BaseResultMap" type="com.chinasoft.employee.dao.entity.UserDO">
+		<id column="PK_ID" jdbcType="VARCHAR" property="pkId" />
+		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+		<result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
+		<result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+		<result column="SALT" jdbcType="VARCHAR" property="salt" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		PK_ID, USER_NAME, NICKNAME, PASSWORD, SALT, CREATE_TIME, UPDATE_TIME
+	</sql>
+	<select id="selectByExample" parameterType="com.chinasoft.employee.dao.entity.UserDOExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from b_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from b_user
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from b_user
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.chinasoft.employee.dao.entity.UserDOExample">
+		delete from b_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.chinasoft.employee.dao.entity.UserDO">
+		insert into b_user (PK_ID, USER_NAME, NICKNAME,
+		PASSWORD, SALT, CREATE_TIME,
+		UPDATE_TIME)
+		values (#{pkId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+		#{nickname,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.chinasoft.employee.dao.entity.UserDO">
+		insert into b_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pkId != null">
+				PK_ID,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="nickname != null">
+				NICKNAME,
+			</if>
+			<if test="password != null">
+				PASSWORD,
+			</if>
+			<if test="salt != null">
+				SALT,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pkId != null">
+				#{pkId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				#{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null">
+				#{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.chinasoft.employee.dao.entity.UserDOExample"
+		resultType="java.lang.Long">
+		select count(*) from b_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update b_user
+		<set>
+			<if test="record.pkId != null">
+				PK_ID = #{record.pkId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.userName != null">
+				USER_NAME = #{record.userName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.nickname != null">
+				NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="record.password != null">
+				PASSWORD = #{record.password,jdbcType=VARCHAR},
+			</if>
+			<if test="record.salt != null">
+				SALT = #{record.salt,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createTime != null">
+				CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.updateTime != null">
+				UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update b_user
+		set PK_ID = #{record.pkId,jdbcType=VARCHAR},
+		USER_NAME = #{record.userName,jdbcType=VARCHAR},
+		NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+		PASSWORD = #{record.password,jdbcType=VARCHAR},
+		SALT = #{record.salt,jdbcType=VARCHAR},
+		CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.chinasoft.employee.dao.entity.UserDO">
+		update b_user
+		<set>
+			<if test="userName != null">
+				USER_NAME = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				NICKNAME = #{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				PASSWORD = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null">
+				SALT = #{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.chinasoft.employee.dao.entity.UserDO">
+		update b_user
+		set USER_NAME = #{userName,jdbcType=VARCHAR},
+		NICKNAME = #{nickname,jdbcType=VARCHAR},
+		PASSWORD = #{password,jdbcType=VARCHAR},
+		SALT = #{salt,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</update>
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into b_user (PK_ID, USER_NAME, NICKNAME, PASSWORD, SALT,
+		CREATE_TIME, UPDATE_TIME)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.pkId,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR},
+			#{item.nickname,jdbcType=VARCHAR},
+			#{item.password,jdbcType=VARCHAR}, #{item.salt,jdbcType=VARCHAR},
+			#{item.createTime,jdbcType=TIMESTAMP},
+			#{item.updateTime,jdbcType=TIMESTAMP})
+		</foreach>
+	</insert>
+
+	<update id="batchUpdateUser" parameterType="java.util.List">
+		update
+		b_user
+		<trim prefix="set" suffixOverrides=",">
+			<trim prefix="USER_NAME = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.userName!= null and records.userName!= ''">
+						when pk_id = #{records.userId} then #{records.userName}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="NICKNAME = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.nickname!= null and records.nickname!= ''">
+						when pk_id = #{records.userId} then #{records.nickname}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="PASSWORD = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.password!= null and records.password!= ''">
+						when pk_id = #{records.userId} then #{records.password}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="UPDATE_TIME = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.updateTime!= null">
+						when pk_id = #{records.userId} then #{records.updateTime}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE
+		pk_id in
+		<foreach collection="list" item="records" index="index" open="("
+			separator="," close=")">
+			#{records.userId}
+		</foreach>
+	</update>
+</mapper>

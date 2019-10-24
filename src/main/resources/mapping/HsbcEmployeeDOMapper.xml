@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.employee.dao.mapper.HsbcEmployeeDOMapper">
+	<resultMap id="BaseResultMap"
+		type="com.chinasoft.employee.dao.entity.HsbcEmployeeDO">
+		<id column="PK_ID" jdbcType="VARCHAR" property="pkId" />
+		<result column="EMPLOYEE_ID" jdbcType="VARCHAR" property="employeeId" />
+		<result column="HSBC_STAFF_ID" jdbcType="VARCHAR" property="hsbcStaffId" />
+		<result column="LN" jdbcType="VARCHAR" property="ln" />
+		<result column="LOCATION_TYPE" jdbcType="INTEGER" property="locationType" />
+		<result column="ONSHORE_OR_OFFSHORE" jdbcType="INTEGER"
+			property="onshoreOrOffshore" />
+		<result column="GB_GF" jdbcType="INTEGER" property="gbGf" />
+		<result column="HSBC_SUBDEPT_ID" jdbcType="INTEGER" property="hsbcSubdeptId" />
+		<result column="HSBC_THRID_DEPT_ID" jdbcType="INTEGER"
+			property="hsbcThridDeptId" />
+		<result column="HSBC_MANAGER" jdbcType="VARCHAR" property="hsbcManager" />
+		<result column="SOW" jdbcType="VARCHAR" property="sow" />
+		<result column="SOW_EXPIRED_DATE" jdbcType="DATE" property="sowExpiredDate" />
+		<result column="HSBC_DOJ" jdbcType="DATE" property="hsbcDoj" />
+		<result column="HSBC_POD" jdbcType="VARCHAR" property="hsbcPod" />
+		<result column="PODTL" jdbcType="BIT" property="podtl" />
+		<result column="TL_TYPE" jdbcType="INTEGER" property="tlType" />
+		<result column="HSBC_PROJECT_NAME" jdbcType="VARCHAR" property="hsbcProjectName" />
+		<result column="STAFF_CATEGORY" jdbcType="VARCHAR" property="staffCategory" />
+		<result column="MENTION_LWD" jdbcType="DATE" property="mentionLwd" />
+		<result column="MSA_ROLE" jdbcType="INTEGER" property="msaRole" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		PK_ID, EMPLOYEE_ID, HSBC_STAFF_ID, LN, LOCATION_TYPE,
+		ONSHORE_OR_OFFSHORE,
+		GB_GF,
+		HSBC_SUBDEPT_ID, HSBC_THRID_DEPT_ID,
+		HSBC_MANAGER, SOW, SOW_EXPIRED_DATE, HSBC_DOJ,
+		HSBC_POD, PODTL,
+		TL_TYPE, HSBC_PROJECT_NAME, STAFF_CATEGORY,
+		MENTION_LWD, MSA_ROLE
+	</sql>
+	<select id="selectByExample"
+		parameterType="com.chinasoft.employee.dao.entity.HsbcEmployeeDOExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from b_hsbc_employee
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from b_hsbc_employee
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		b_hsbc_employee
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="com.chinasoft.employee.dao.entity.HsbcEmployeeDOExample">
+		delete from b_hsbc_employee
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.chinasoft.employee.dao.entity.HsbcEmployeeDO">
+		insert into b_hsbc_employee
+		(PK_ID, EMPLOYEE_ID, HSBC_STAFF_ID,
+		LN, LOCATION_TYPE,
+		ONSHORE_OR_OFFSHORE,
+		GB_GF, HSBC_SUBDEPT_ID, HSBC_THRID_DEPT_ID,
+		HSBC_MANAGER, SOW, SOW_EXPIRED_DATE,
+		HSBC_DOJ, HSBC_POD, PODTL,
+		TL_TYPE,
+		HSBC_PROJECT_NAME, STAFF_CATEGORY, MENTION_LWD,
+		MSA_ROLE)
+		values (#{pkId,jdbcType=VARCHAR}, #{employeeId,jdbcType=VARCHAR},
+		#{hsbcStaffId,jdbcType=VARCHAR},
+		#{ln,jdbcType=VARCHAR},
+		#{locationType,jdbcType=INTEGER},
+		#{onshoreOrOffshore,jdbcType=INTEGER},
+		#{gbGf,jdbcType=INTEGER},
+		#{hsbcSubdeptId,jdbcType=INTEGER},
+		#{hsbcThridDeptId,jdbcType=INTEGER},
+		#{hsbcManager,jdbcType=VARCHAR},
+		#{sow,jdbcType=VARCHAR}, #{sowExpiredDate,jdbcType=DATE},
+		#{hsbcDoj,jdbcType=DATE}, #{hsbcPod,jdbcType=VARCHAR},
+		#{podtl,jdbcType=BIT}, #{tlType,jdbcType=INTEGER},
+		#{hsbcProjectName,jdbcType=VARCHAR},
+		#{staffCategory,jdbcType=VARCHAR}, #{mentionLwd,jdbcType=DATE},
+		#{msaRole,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.chinasoft.employee.dao.entity.HsbcEmployeeDO">
+		insert into b_hsbc_employee
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pkId != null">
+				PK_ID,
+			</if>
+			<if test="employeeId != null">
+				EMPLOYEE_ID,
+			</if>
+			<if test="hsbcStaffId != null">
+				HSBC_STAFF_ID,
+			</if>
+			<if test="ln != null">
+				LN,
+			</if>
+			<if test="locationType != null">
+				LOCATION_TYPE,
+			</if>
+			<if test="onshoreOrOffshore != null">
+				ONSHORE_OR_OFFSHORE,
+			</if>
+			<if test="gbGf != null">
+				GB_GF,
+			</if>
+			<if test="hsbcSubdeptId != null">
+				HSBC_SUBDEPT_ID,
+			</if>
+			<if test="hsbcThridDeptId != null">
+				HSBC_THRID_DEPT_ID,
+			</if>
+			<if test="hsbcManager != null">
+				HSBC_MANAGER,
+			</if>
+			<if test="sow != null">
+				SOW,
+			</if>
+			<if test="sowExpiredDate != null">
+				SOW_EXPIRED_DATE,
+			</if>
+			<if test="hsbcDoj != null">
+				HSBC_DOJ,
+			</if>
+			<if test="hsbcPod != null">
+				HSBC_POD,
+			</if>
+			<if test="podtl != null">
+				PODTL,
+			</if>
+			<if test="tlType != null">
+				TL_TYPE,
+			</if>
+			<if test="hsbcProjectName != null">
+				HSBC_PROJECT_NAME,
+			</if>
+			<if test="staffCategory != null">
+				STAFF_CATEGORY,
+			</if>
+			<if test="mentionLwd != null">
+				MENTION_LWD,
+			</if>
+			<if test="msaRole != null">
+				MSA_ROLE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pkId != null">
+				#{pkId,jdbcType=VARCHAR},
+			</if>
+			<if test="employeeId != null">
+				#{employeeId,jdbcType=VARCHAR},
+			</if>
+			<if test="hsbcStaffId != null">
+				#{hsbcStaffId,jdbcType=VARCHAR},
+			</if>
+			<if test="ln != null">
+				#{ln,jdbcType=VARCHAR},
+			</if>
+			<if test="locationType != null">
+				#{locationType,jdbcType=INTEGER},
+			</if>
+			<if test="onshoreOrOffshore != null">
+				#{onshoreOrOffshore,jdbcType=INTEGER},
+			</if>
+			<if test="gbGf != null">
+				#{gbGf,jdbcType=INTEGER},
+			</if>
+			<if test="hsbcSubdeptId != null">
+				#{hsbcSubdeptId,jdbcType=INTEGER},
+			</if>
+			<if test="hsbcThridDeptId != null">
+				#{hsbcThridDeptId,jdbcType=INTEGER},
+			</if>
+			<if test="hsbcManager != null">
+				#{hsbcManager,jdbcType=VARCHAR},
+			</if>
+			<if test="sow != null">
+				#{sow,jdbcType=VARCHAR},
+			</if>
+			<if test="sowExpiredDate != null">
+				#{sowExpiredDate,jdbcType=DATE},
+			</if>
+			<if test="hsbcDoj != null">
+				#{hsbcDoj,jdbcType=DATE},
+			</if>
+			<if test="hsbcPod != null">
+				#{hsbcPod,jdbcType=VARCHAR},
+			</if>
+			<if test="podtl != null">
+				#{podtl,jdbcType=BIT},
+			</if>
+			<if test="tlType != null">
+				#{tlType,jdbcType=INTEGER},
+			</if>
+			<if test="hsbcProjectName != null">
+				#{hsbcProjectName,jdbcType=VARCHAR},
+			</if>
+			<if test="staffCategory != null">
+				#{staffCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="mentionLwd != null">
+				#{mentionLwd,jdbcType=DATE},
+			</if>
+			<if test="msaRole != null">
+				#{msaRole,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="com.chinasoft.employee.dao.entity.HsbcEmployeeDOExample"
+		resultType="java.lang.Long">
+		select count(*) from b_hsbc_employee
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update b_hsbc_employee
+		<set>
+			<if test="record.pkId != null">
+				PK_ID = #{record.pkId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.employeeId != null">
+				EMPLOYEE_ID = #{record.employeeId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.hsbcStaffId != null">
+				HSBC_STAFF_ID = #{record.hsbcStaffId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ln != null">
+				LN = #{record.ln,jdbcType=VARCHAR},
+			</if>
+			<if test="record.locationType != null">
+				LOCATION_TYPE = #{record.locationType,jdbcType=INTEGER},
+			</if>
+			<if test="record.onshoreOrOffshore != null">
+				ONSHORE_OR_OFFSHORE =
+				#{record.onshoreOrOffshore,jdbcType=INTEGER},
+			</if>
+			<if test="record.gbGf != null">
+				GB_GF = #{record.gbGf,jdbcType=INTEGER},
+			</if>
+			<if test="record.hsbcSubdeptId != null">
+				HSBC_SUBDEPT_ID =
+				#{record.hsbcSubdeptId,jdbcType=INTEGER},
+			</if>
+			<if test="record.hsbcThridDeptId != null">
+				HSBC_THRID_DEPT_ID =
+				#{record.hsbcThridDeptId,jdbcType=INTEGER},
+			</if>
+			<if test="record.hsbcManager != null">
+				HSBC_MANAGER = #{record.hsbcManager,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sow != null">
+				SOW = #{record.sow,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sowExpiredDate != null">
+				SOW_EXPIRED_DATE =
+				#{record.sowExpiredDate,jdbcType=DATE},
+			</if>
+			<if test="record.hsbcDoj != null">
+				HSBC_DOJ = #{record.hsbcDoj,jdbcType=DATE},
+			</if>
+			<if test="record.hsbcPod != null">
+				HSBC_POD = #{record.hsbcPod,jdbcType=VARCHAR},
+			</if>
+			<if test="record.podtl != null">
+				PODTL = #{record.podtl,jdbcType=BIT},
+			</if>
+			<if test="record.tlType != null">
+				TL_TYPE = #{record.tlType,jdbcType=INTEGER},
+			</if>
+			<if test="record.hsbcProjectName != null">
+				HSBC_PROJECT_NAME =
+				#{record.hsbcProjectName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.staffCategory != null">
+				STAFF_CATEGORY =
+				#{record.staffCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mentionLwd != null">
+				MENTION_LWD = #{record.mentionLwd,jdbcType=DATE},
+			</if>
+			<if test="record.msaRole != null">
+				MSA_ROLE = #{record.msaRole,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update b_hsbc_employee
+		set PK_ID = #{record.pkId,jdbcType=VARCHAR},
+		EMPLOYEE_ID = #{record.employeeId,jdbcType=VARCHAR},
+		HSBC_STAFF_ID =
+		#{record.hsbcStaffId,jdbcType=VARCHAR},
+		LN =
+		#{record.ln,jdbcType=VARCHAR},
+		LOCATION_TYPE =
+		#{record.locationType,jdbcType=INTEGER},
+		ONSHORE_OR_OFFSHORE =
+		#{record.onshoreOrOffshore,jdbcType=INTEGER},
+		GB_GF =
+		#{record.gbGf,jdbcType=INTEGER},
+		HSBC_SUBDEPT_ID =
+		#{record.hsbcSubdeptId,jdbcType=INTEGER},
+		HSBC_THRID_DEPT_ID =
+		#{record.hsbcThridDeptId,jdbcType=INTEGER},
+		HSBC_MANAGER =
+		#{record.hsbcManager,jdbcType=VARCHAR},
+		SOW =
+		#{record.sow,jdbcType=VARCHAR},
+		SOW_EXPIRED_DATE =
+		#{record.sowExpiredDate,jdbcType=DATE},
+		HSBC_DOJ =
+		#{record.hsbcDoj,jdbcType=DATE},
+		HSBC_POD =
+		#{record.hsbcPod,jdbcType=VARCHAR},
+		PODTL =
+		#{record.podtl,jdbcType=BIT},
+		TL_TYPE =
+		#{record.tlType,jdbcType=INTEGER},
+		HSBC_PROJECT_NAME =
+		#{record.hsbcProjectName,jdbcType=VARCHAR},
+		STAFF_CATEGORY =
+		#{record.staffCategory,jdbcType=VARCHAR},
+		MENTION_LWD =
+		#{record.mentionLwd,jdbcType=DATE},
+		MSA_ROLE =
+		#{record.msaRole,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.chinasoft.employee.dao.entity.HsbcEmployeeDO">
+		update b_hsbc_employee
+		<set>
+			<if test="employeeId != null">
+				EMPLOYEE_ID = #{employeeId,jdbcType=VARCHAR},
+			</if>
+			<if test="hsbcStaffId != null">
+				HSBC_STAFF_ID = #{hsbcStaffId,jdbcType=VARCHAR},
+			</if>
+			<if test="ln != null">
+				LN = #{ln,jdbcType=VARCHAR},
+			</if>
+			<if test="locationType != null">
+				LOCATION_TYPE = #{locationType,jdbcType=INTEGER},
+			</if>
+			<if test="onshoreOrOffshore != null">
+				ONSHORE_OR_OFFSHORE =
+				#{onshoreOrOffshore,jdbcType=INTEGER},
+			</if>
+			<if test="gbGf != null">
+				GB_GF = #{gbGf,jdbcType=INTEGER},
+			</if>
+			<if test="hsbcSubdeptId != null">
+				HSBC_SUBDEPT_ID = #{hsbcSubdeptId,jdbcType=INTEGER},
+			</if>
+			<if test="hsbcThridDeptId != null">
+				HSBC_THRID_DEPT_ID = #{hsbcThridDeptId,jdbcType=INTEGER},
+			</if>
+			<if test="hsbcManager != null">
+				HSBC_MANAGER = #{hsbcManager,jdbcType=VARCHAR},
+			</if>
+			<if test="sow != null">
+				SOW = #{sow,jdbcType=VARCHAR},
+			</if>
+			<if test="sowExpiredDate != null">
+				SOW_EXPIRED_DATE = #{sowExpiredDate,jdbcType=DATE},
+			</if>
+			<if test="hsbcDoj != null">
+				HSBC_DOJ = #{hsbcDoj,jdbcType=DATE},
+			</if>
+			<if test="hsbcPod != null">
+				HSBC_POD = #{hsbcPod,jdbcType=VARCHAR},
+			</if>
+			<if test="podtl != null">
+				PODTL = #{podtl,jdbcType=BIT},
+			</if>
+			<if test="tlType != null">
+				TL_TYPE = #{tlType,jdbcType=INTEGER},
+			</if>
+			<if test="hsbcProjectName != null">
+				HSBC_PROJECT_NAME = #{hsbcProjectName,jdbcType=VARCHAR},
+			</if>
+			<if test="staffCategory != null">
+				STAFF_CATEGORY = #{staffCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="mentionLwd != null">
+				MENTION_LWD = #{mentionLwd,jdbcType=DATE},
+			</if>
+			<if test="msaRole != null">
+				MSA_ROLE = #{msaRole,jdbcType=INTEGER},
+			</if>
+		</set>
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.chinasoft.employee.dao.entity.HsbcEmployeeDO">
+		update
+		b_hsbc_employee
+		set EMPLOYEE_ID = #{employeeId,jdbcType=VARCHAR},
+		HSBC_STAFF_ID = #{hsbcStaffId,jdbcType=VARCHAR},
+		LN =
+		#{ln,jdbcType=VARCHAR},
+		LOCATION_TYPE =
+		#{locationType,jdbcType=INTEGER},
+		ONSHORE_OR_OFFSHORE =
+		#{onshoreOrOffshore,jdbcType=INTEGER},
+		GB_GF =
+		#{gbGf,jdbcType=INTEGER},
+		HSBC_SUBDEPT_ID =
+		#{hsbcSubdeptId,jdbcType=INTEGER},
+		HSBC_THRID_DEPT_ID =
+		#{hsbcThridDeptId,jdbcType=INTEGER},
+		HSBC_MANAGER =
+		#{hsbcManager,jdbcType=VARCHAR},
+		SOW = #{sow,jdbcType=VARCHAR},
+		SOW_EXPIRED_DATE = #{sowExpiredDate,jdbcType=DATE},
+		HSBC_DOJ =
+		#{hsbcDoj,jdbcType=DATE},
+		HSBC_POD = #{hsbcPod,jdbcType=VARCHAR},
+		PODTL
+		= #{podtl,jdbcType=BIT},
+		TL_TYPE = #{tlType,jdbcType=INTEGER},
+		HSBC_PROJECT_NAME = #{hsbcProjectName,jdbcType=VARCHAR},
+		STAFF_CATEGORY = #{staffCategory,jdbcType=VARCHAR},
+		MENTION_LWD =
+		#{mentionLwd,jdbcType=DATE},
+		MSA_ROLE = #{msaRole,jdbcType=INTEGER}
+		where PK_ID = #{pkId,jdbcType=VARCHAR}
+	</update>
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into b_hsbc_employee (PK_ID, EMPLOYEE_ID, HSBC_STAFF_ID,
+		LN,
+		LOCATION_TYPE, ONSHORE_OR_OFFSHORE,
+		GB_GF, HSBC_SUBDEPT_ID,
+		HSBC_THRID_DEPT_ID,
+		HSBC_MANAGER, SOW, SOW_EXPIRED_DATE,
+		HSBC_DOJ,
+		HSBC_POD, PODTL, TL_TYPE,
+		HSBC_PROJECT_NAME, STAFF_CATEGORY,
+		MENTION_LWD,
+		MSA_ROLE)
+		values
+		<foreach collection="list" item="records" index="index"
+			separator=",">
+			(#{records.pkId,jdbcType=VARCHAR},
+			#{records.employeeId,jdbcType=VARCHAR},
+			#{records.hsbcStaffId,jdbcType=VARCHAR},
+			#{records.ln,jdbcType=VARCHAR},
+			#{records.locationType,jdbcType=INTEGER},
+			#{records.onshoreOrOffshore,jdbcType=INTEGER},
+			#{records.gbGf,jdbcType=INTEGER},
+			#{records.hsbcSubdeptId,jdbcType=INTEGER},
+			#{records.hsbcThridDeptId,jdbcType=INTEGER},
+			#{records.hsbcManager,jdbcType=VARCHAR},
+			#{records.sow,jdbcType=VARCHAR},
+			#{records.sowExpiredDate,jdbcType=DATE},
+			#{records.hsbcDoj,jdbcType=DATE},
+			#{records.hsbcPod,jdbcType=VARCHAR}, #{records.podtl,jdbcType=BIT},
+			#{records.tlType,jdbcType=INTEGER},
+			#{records.hsbcProjectName,jdbcType=VARCHAR},
+			#{records.staffCategory,jdbcType=VARCHAR},
+			#{records.mentionLwd,jdbcType=DATE},
+			#{records.msaRole,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+	<delete id="batchDelete" parameterType="java.util.List">
+		delete from b_hsbc_employee where employee_id in
+		<foreach item="records" collection="list" open="(" separator=","
+			close=")">
+			#{records.pkId}
+		</foreach>
+	</delete>
+	<update id="batchUpdateHsbcEmployees" parameterType="java.util.List">
+		update
+		b_hsbc_employee
+		<trim prefix="set" suffixOverrides=",">
+			<trim prefix="HSBC_STAFF_ID = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.hsbcStaffId != '' and records.hsbcStaffId != null">
+						when employee_id = #{records.pkId} then
+						#{records.hsbcStaffId}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="LN = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.ln != '' and records.ln != null">
+						when employee_id = #{records.pkId} then #{records.ln}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="HSBC_PROJECT_NAME = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if
+						test="records.hsbcProjectName != '' and records.hsbcProjectName != null">
+						when employee_id = #{records.pkId} then
+						#{records.hsbcProjectName}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="STAFF_CATEGORY = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.staffCategory != '' and records.staffCategory != null">
+						when employee_id = #{records.pkId} then
+						#{records.staffCategory}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="HSBC_MANAGER = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.hsbcManager != '' and records.hsbcManager != null">
+						when employee_id = #{records.pkId} then
+						#{records.hsbcManager}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="SOW = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.sow != '' and records.sow != null">
+						when employee_id = #{records.pkId} then #{records.sow}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="HSBC_POD = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.hsbcPod != '' and records.hsbcPod != null">
+						when employee_id = #{records.pkId} then
+						#{records.hsbcPod}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="HSBC_DOJ = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.hsbcDoj != null">
+						when employee_id = #{records.pkId} then
+						#{records.hsbcDoj}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="MENTION_LWD = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.mentionLwd != null">
+						when employee_id = #{records.pkId} then
+						#{records.mentionLwd}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="SOW_EXPIRED_DATE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+					<if test="records.sowExpiredDate != null">
+						when employee_id = #{records.pkId} then
+						#{records.sowExpiredDate}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="MSA_ROLE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.msaRole != null">
+					when
+					employee_id =
+					#{records.pkId} then
+					#{records.msaRole}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="LOCATION_TYPE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+                  <if test="records.locationType != null">
+					when
+					employee_id = #{records.pkId} then
+					#{records.locationType}
+                  </if>
+
+				</foreach>
+			</trim>
+
+
+			<trim prefix="ONSHORE_OR_OFFSHORE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.onshoreOrOffshore != null">
+					when
+					employee_id =
+					#{records.pkId} then
+					#{records.onshoreOrOffshore}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="GB_GF = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.gbGf != null">
+					when
+					employee_id =
+					#{records.pkId} then
+					#{records.gbGf}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="HSBC_SUBDEPT_ID = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.hsbcSubdeptId != null">
+					when
+					employee_id =
+					#{records.pkId} then
+					#{records.hsbcSubdeptId}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="HSBC_THRID_DEPT_ID = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.hsbcThridDeptId != null">
+					when
+					employee_id =
+					#{records.pkId} then
+					#{records.hsbcThridDeptId}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="PODTL = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.podtl != null">
+					when
+					employee_id =
+					#{records.pkId} then
+					#{records.podtl}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="TL_TYPE = case" suffix="end,">
+				<foreach collection="list" item="records" index="index">
+				<if test="records.tlType != null">
+					when
+					employee_id =
+					#{records.pkId} then
+					#{records.tlType}
+					</if>
+				</foreach>
+			</trim>
+
+		</trim>
+		WHERE
+		employee_id in
+		<foreach collection="list" item="records" index="index" open="("
+			separator="," close=")">
+			#{records.pkId}
+		</foreach>
+
+	</update>
+
+
+</mapper>
